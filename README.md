@@ -90,12 +90,8 @@ const products = [
 
 ## 📦 Deployment
 
-This is a static frontend and can be deployed to:
-
-* GitHub Pages
-* Netlify
-* Vercel
-* Any static file host
+This is a static frontend has been deployed to:
+https://plp-webtechnologies.github.io/feb-2025-final-project-and-deployment-Muthaa/
 
 ---
 
