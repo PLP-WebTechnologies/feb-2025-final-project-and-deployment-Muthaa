@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo"><a href="index.html">E-Store</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><button id="dark-mode-toggle">🌓</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Your Cart</h1>
+    <section id="cart-items"></section>
+    <section id="cart-summary">
+      <h2>Total: $<span id="cart-total">0.00</span></h2>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 E-Store</p>
+  </footer>
+
+  <script src="scripts/products.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

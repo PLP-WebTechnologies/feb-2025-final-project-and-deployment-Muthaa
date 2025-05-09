@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo"><a href="index.html">E-Store</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><button id="dark-mode-toggle">🌓</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="product-detail">
+      <img src="assets/images/sample-product.jpg" alt="Product Image">
+      <div class="details">
+        <h1>Loading...</h1>
+        <p class="price">$0.00</p>
+        <p class="description">Loading description...</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 E-Store</p>
+  </footer>
+
+  <script src="scripts/products.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const productId = parseInt(params.get("id"));
+      const product = products.find(p => p.id === productId);
+
+      const titleEl = document.querySelector("h1");
+      const priceEl = document.querySelector(".price");
+      const imgEl = document.querySelector(".product-detail img");
+      const descEl = document.querySelector(".description");
+      const addBtn = document.querySelector(".add-to-cart");
+
+      if (product) {
+        titleEl.textContent = product.name;
+        priceEl.textContent = `$${product.price.toFixed(2)}`;
+        imgEl.src = product.image;
+        imgEl.alt = product.name;
+        descEl.textContent = product.description;
+
+        addBtn.addEventListener("click", () => {
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const existing = cart.find(item => item.id === product.id);
+
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({ id: product.id, quantity: 1 });
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${product.name} added to cart!`);
+        });
+
+      } else {
+        document.querySelector("main").innerHTML = "<p>Product not found.</p>";
+      }
+
+      function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Defensive: ensure quantity is a valid number
+        const count = cart.reduce((sum, item) => {
+          const qty = parseInt(item.quantity, 10);
+          return sum + (isNaN(qty) ? 0 : qty);
+        }, 0);
+
+        document.getElementById("cart-count").textContent = count;
+      }
+
+      updateCartCount();
+    });
+  </script>
+
+</body>
+</html>
